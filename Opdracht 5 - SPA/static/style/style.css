@@ -22,8 +22,11 @@ nav {
   width: 100%;
 }
 
+.none{
+	display: none;
+}
+
 #Start{
-	display: block;
   background-color: #cccccc;
   height: 40em;
   width: 20em;
@@ -35,7 +38,6 @@ nav {
 }
 
 #best-practices{
-	display: block;
   background-color: #cccccc;
   height: 40em;
   height: 40em;
