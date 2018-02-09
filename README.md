@@ -22,13 +22,21 @@ Wel kan ik uit de bronnen opmaken dat het een fijne programmeer taal is die snel
 ## Advantages and disadvantages of client-side single page web apps
 
 ### Advantages
+- Vlotte gebruikerservaring [Bron](https://nl.wikipedia.org/wiki/Single_Page_Application)
+- Voelt aan als computerprogramma wat je op je eigen computer draait. [Bron](https://nl.wikipedia.org/wiki/Single_Page_Application)
+- Alle benodigde code, HTML, CSS en JavaScript wordt opgehaald met een enkele laad actie van de pagina [Bron](https://nl.wikipedia.org/wiki/Single_Page_Application)
 -
 
 ### Disadvantages
--
+- Als je de pagina wil refreshen, refresh je meteen alles.
+- Als er iets binnen de code kapot is, loop je kans dat de rest van de code ook niet lekker werkt.
 
 ### Eigen bevindingen
+Voor het groepsproject van het project information design van vorig blok, heb ik samen met Victor Zumpolle een single page web app gemaakt.
+We hebben om dit werkend te krijgen veel JavaScript gebruikt. We hebben veel eventlisteners gebruikt en in de HTML veel elementen een class active gegeven.
+Vervolgens zorgden we er met JavaScript voor dat we die classes weer verwijderden als we de elementen niet meer nodig hadden.
 
+Ik vind het een fijne manier van werken, al moet ik eerlijk zeggen dat ik het bouwen ervan nog wel erg moeilijk vind.
 
 ## Best practices
 ...

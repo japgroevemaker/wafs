@@ -17,13 +17,13 @@ body {
 }
 
 nav {
-  background-color: #ff9999;
   position: fixed;
   top: 0;
   width: 100%;
 }
 
 #Start{
+	display: block;
   background-color: #cccccc;
   height: 40em;
   width: 20em;
@@ -35,6 +35,7 @@ nav {
 }
 
 #best-practices{
+	display: block;
   background-color: #cccccc;
   height: 40em;
   height: 40em;
