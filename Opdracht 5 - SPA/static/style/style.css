@@ -13,13 +13,36 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 	}
 
 body {
+	box-sizing: border-box;;
+}
 
+header{
+	margin: 1em auto;
+	width: 90%;
+	height: 2em;
+	background-color: #fff;
+	border-bottom: solid 0.01em #000;
 }
 
 nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
+	width: 90%;
+	margin:auto;
+}
+
+ul{
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+ul>li>a{
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 1.2em;
+	color: #cccccc;
+	margin-bottom: 1em;
 }
 
 .none{
@@ -27,22 +50,23 @@ nav {
 }
 
 #Start{
-  background-color: #cccccc;
-  height: 40em;
+	margin: 1em auto;
   width: 20em;
-  margin: auto;
-  padding-left: 1em;
-  padding-top: 0.1em;
-  margin-bottom: 2em;
-  margin-top: 3em;
 }
 
-#best-practices{
-  background-color: #cccccc;
-  height: 40em;
-  height: 40em;
+h1{
+	font-family: sans-serif;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+
+#weather{
+	margin: 1em auto;
   width: 20em;
-  margin: auto;
-  padding-left: 1em;
-  padding-top: 0.1em;
+}
+
+#weather>p{
+	text-align: center;
+	font-family: cursive;
 }
