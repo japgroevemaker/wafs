@@ -10,29 +10,42 @@
 
 <body>
 
-<header>
-  <nav>
-    <ul>
-      <li><a href="#Start">Home</a></li>
-      <li><a href="#weather">Weer</a></li>
-    </ul>
-  </nav>
-</header>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#Start">Home</a></li>
+        <li><a href="#movies">Movies</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<main>
-  <section id="Start">
-    <h1>Home</h1>
+  <main>
+    <section id="Start">
+      <h1>Home</h1>
 
-  </section>
+    </section>
 
-  <section id="weather" class="none">
-    <h1>Weer</h1>
-    <p>Het weer in IJmuiden</p>
-    <ul id="listItems">
-      <li class="date"></li>
-    </ul>
-  </section>
-</main>
+    <section id="movies" class="none">
+      <h1>Top Stories</h1>
+      <div id="activities">
+        <ul>
+          <li><a class="display_title" data-bind="title"></a></li>
+          <li><a class="headline" data-bind="film_id"></a></li>
+          <li><img src="" data-bind="image"></li>
+          <li><a class="summary" data-bind="summary"></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="moviemain" class="none">
+
+        <h1 class="display_title" data-bind='Title'></h1>
+        <img src="" data-bind='image' alt="">
+        <p class="summary" data-bind='summary'></p>
+
+    </section>
+
+  </main>
 
   <script src="static/js/routie.js"></script>
   <script src="static/js/app.js"></script>
