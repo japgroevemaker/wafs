@@ -56,18 +56,8 @@ console.log('global scope');
           console.log(name)
           template.toggle('#newsmain')
           template.newDetail(data, name)
-
-          // template.render(name);
-
-          // var names = name
-
         }
       })
-      // what's in the hash?
-      // window.addEventListener("hashchange", function(event) {
-      //   var route = location.hash;
-      //   template.toggle(route)
-      // })
     }
   }
 
@@ -76,29 +66,13 @@ console.log('global scope');
     render: function(data) {
       // hookup template engine
 
-      // var dataFilm = data.map(function(i) { //Map function thanks to Keving Wang and Oy
-      //   return {
-      //     byline: i.byline,
-      //     critics_pick: i.critics_pick,
-      //     date_updated: i.date_updated,
-      //     title: i.title,
-      //     display_link: i.title.replace(/ /g, "_"),
-      //     headline: i.headline,
-      //     multimedia: i.multimedia.src,
-      //     link: i.link.url,
-      //     summary: i.summary_short
-      //   }
-      // });
-
       var dataNews = data.map(function(i) {
         return {
           title: i.title,
           display_link: i.title.replace(/ /g, "_"),
           multimedia: i.urlToImage,
-          source: i.source.name
         }
       });
-
 
       var news = {
         display_title: {
@@ -106,19 +80,9 @@ console.log('global scope');
             return `#news/${this.display_link}`
           }
         },
-        headline: {
-          class: function(params) {
-            return this.title
-          }
-        },
         image: {
           src: function(params) {
             return this.multimedia
-          }
-        },
-        source: {
-          href: function(params) {
-            return `${this.source}`
           }
         }
       };
@@ -191,11 +155,7 @@ console.log('global scope');
       }
       if (document.querySelector(route)) {
         document.querySelector(route).classList.remove("none")
-      } else {
-        return
       }
-
-      // section.classList.remove("none")
     }
   }
   //start the application

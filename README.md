@@ -55,11 +55,128 @@ omdat ik het uit mijzelf schrijven van JavaScript nog erg lastig vindt, heb ik v
   <div id="activities">
     <ul>
       <li><a class="display_title" data-bind="title"></a></li>
-      <li><a class="source" data-bind="source"></a></li>
       <li><img src="" data-bind="image"></li>
-      <li><a class="summary" data-bind="summary"></a></li>
     </ul>
   </div>
 </section>
 ```
-De section met 
+De section met ```id="news"``` heb ik een ```class="none"``` mee gegeven. Deze staat in de css als volgt gedeclareerd:
+```
+.none{
+	display: none;
+}
+```
+Deze id wordt dus bij het openen van de pagina niet getoond. Met JavaScript heb ik er voor gezord dat als men in de navigatie op News zou klikken, dat de home pagina dan zou de ```class="none"``` toegewezen zou krijgen en dat deze bij ```id="news"``` er van af gehaald zou worden. Dit heb ik als volgt gedaan.
+```javascript
+var sections = document.querySelectorAll("section");
+var section = document.querySelector(route);
+
+for (var i = 0; i < sections.length; i++) {
+  sections[i].classList.add("none")
+}
+if (document.querySelector(route)) {
+  document.querySelector(route).classList.remove("none")
+}
+```
+
+### routie
+Vervolgens was het de opdracht om de routie goed te implementeren. De routie bepaald de routing door de pagina. Dit vond ik ook nog redelijk lastig, maar na wat hulp en zelf online opzoeken is het ook voor mij een logische structuur.'start', 'news' en 'news/:name' zijn aan de JavaScript gekoppeld door middel van hun ID in de HTML. Daarna geef ik er een function aan mee die vervolgens de juiste 'pagina' toggled.
+Dit doet hij dus doormiddel van ```template.toggle```. Bij ```news/:name``` Toggled hij ook mijn nieuws detailpagina.
+```javascript
+routie({
+  'start': function() {
+    console.log('test')
+    template.toggle('#Start')
+  },
+  'news': function() {
+    template.toggle('#news')
+    template.render(data)
+  },
+  'news/:name': function(name) {
+    console.log(name)
+    template.toggle('#newsmain')
+    template.newDetail(data, name)
+  }
+})
+```
+
+### De juiste data tonen
+Vervolgens ging ik verder met het welke data ik waar wilde gaan tonen. Ik had het idee om een overzichtspagina te maken met allemaal tegels met daarin een afbeelding en een titel. Als men dan vervolgens op die titel zou klikken zou je naar de detailpagina van dat nieuwsartikel doorverwezen worden en het artikel helemaal kunnen lezen.
+Als eerst ben ik bezig gegaan met het declareren van de data die ik op mijn overzichtspagina wilde tonen. Dit heb ik als volgt gedaan. Als eerst ben ik door de data heen gaan mappen en heb de data er uit gepakt die ik nodig heb. Vervolgens heb ik die weer in een nieuwe variabelen news gestopt die weer met de HTML pagina communiceerde via data-binds.
+```javascript
+var dataNews = data.map(function(i) {
+  return {
+    title: i.title,
+    display_link: i.title.replace(/ /g, "_"),
+    multimedia: i.urlToImage,
+  }
+});
+
+var news = {
+  display_title: {
+    href: function(params) {
+      return `#news/${this.display_link}`
+    }
+  },
+  image: {
+    src: function(params) {
+      return this.multimedia
+    }
+  }
+};
+```
+Vervolgens heb ik doormiddel van Transparency de data in de pagina geladen. Hij pakt de section met id 'activities' uit de HTML en zet daar de data in.
+```javascript
+var target = document.getElementById('activities');
+console.log(api.response.articles);
+
+Transparency.render(target, dataNews, news);
+},
+```
+Daarna ben ik verder gegaan met het declareren van de data voor de detailpagina. Ik heb hierbij het zelfde pad bewandeld als hierboven, alleen heb ik hier gefilterd op de data die ik wilde tonen. Hier krijgt hij de parameter name mee vanuit de routie, waar ik met een .replace de _ voor gewone spaties vervang. Daarna zeg ik dat de data gefilterd moeten worden en het artikel dat gelijk staat aan het aangeklikte artikel getooond moet worden. Daarna gebruik ik weer een map functie om te declareren wat ik wil laten zien en vervolgens stop ik dat weer in een variabelen newsDetail die dat vervolgens weer aan de HTML doorspeelt doormiddel van data-binds.
+
+```javascript
+newDetail: function(data, name) {
+  var spaceName = name.replace(/_/g, " ")
+
+  var dataNews2 = data.filter(function(i) {
+    return i.title == spaceName
+  }).map(function(i) {
+    console.log(i)
+    return {
+      title: i.title,
+      multimedia: i.urlToImage,
+      description: i.description,
+      linkName: i.url.name,
+      link: i.url
+    }
+  });
+
+  var newsDetail = {
+    title: {
+      href: function(params) {
+        return this.title
+      }
+    },
+    image: {
+      src: function(params) {
+        return this.multimedia
+      }
+    },
+    description: {
+      class: function(params) {
+        return this.description
+      }
+    },
+    linkName: {
+      class: function(params) {
+        return this.linkName
+      }
+    },
+    link: {
+      href: function(params) {
+        return this.link
+      }
+    },
+  }
+```
