@@ -14,7 +14,7 @@
     <nav>
       <ul>
         <li><a href="#Start">Home</a></li>
-        <li><a href="#movies">Movies</a></li>
+        <li><a href="#news">News</a></li>
       </ul>
     </nav>
   </header>
@@ -25,24 +25,24 @@
 
     </section>
 
-    <section id="movies" class="none">
+    <section id="news" class="none">
       <h1>Top Stories</h1>
       <div id="activities">
         <ul>
           <li><a class="display_title" data-bind="title"></a></li>
-          <li><a class="headline" data-bind="film_id"></a></li>
+          <li><a class="source" data-bind="source"></a></li>
           <li><img src="" data-bind="image"></li>
           <li><a class="summary" data-bind="summary"></a></li>
         </ul>
       </div>
     </section>
 
-    <section id="moviemain" class="none">
+    <section id="newsmain" class="none">
 
-        <h1 class="display_title" data-bind='Title'></h1>
+        <h1 class="title" data-bind='title'></h1>
         <img src="" data-bind='image' alt="">
-        <p class="summary" data-bind='summary'></p>
-
+        <p class="description" data-bind='description'></p>
+        <a class="" data-bind="title"></a>
     </section>
 
   </main>

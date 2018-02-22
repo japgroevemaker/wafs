@@ -21,7 +21,7 @@ console.log('global scope');
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
           api.response = JSON.parse(request.responseText);
-          routes.init(api.response.results)
+          routes.init(api.response.articles)
 
         } else {
 
@@ -32,12 +32,10 @@ console.log('global scope');
         console.log('het werkt niet')
       }
 
-      request.open('GET', 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?api-key=3d8eafd7eaf04aa6a1493eaa050714a7', true);
+      request.open('GET', 'https://newsapi.org/v2/top-headlines?country=us&apiKey=1f66fe07b37d4b97bfa9b13709c31a59', true);
       request.setRequestHeader("Accept", "application/json");
       request.send();
-
-
-
+      console.log(api)
     }
   }
 
@@ -50,14 +48,14 @@ console.log('global scope');
           console.log('test')
           template.toggle('#Start')
         },
-        'movies': function() {
-          template.toggle('#movies')
+        'news': function() {
+          template.toggle('#news')
           template.render(data)
         },
-        'movies/:name': function(name) {
+        'news/:name': function(name) {
           console.log(name)
-          template.toggle('#moviemain')
-          template.movieDetail(data, name)
+          template.toggle('#newsmain')
+          template.newDetail(data, name)
 
           // template.render(name);
 
@@ -78,29 +76,39 @@ console.log('global scope');
     render: function(data) {
       // hookup template engine
 
-      var dataFilm = data.map(function(i) { //Map function thanks to Keving Wang and Oy
+      // var dataFilm = data.map(function(i) { //Map function thanks to Keving Wang and Oy
+      //   return {
+      //     byline: i.byline,
+      //     critics_pick: i.critics_pick,
+      //     date_updated: i.date_updated,
+      //     title: i.title,
+      //     display_link: i.title.replace(/ /g, "_"),
+      //     headline: i.headline,
+      //     multimedia: i.multimedia.src,
+      //     link: i.link.url,
+      //     summary: i.summary_short
+      //   }
+      // });
+
+      var dataNews = data.map(function(i) {
         return {
-          byline: i.byline,
-          critics_pick: i.critics_pick,
-          date_updated: i.date_updated,
-          title: i.display_title,
-          display_link: i.display_title.replace(/ /g, "_"),
-          headline: i.headline,
-          multimedia: i.multimedia.src,
-          link: i.link.url,
-          summary: i.summary_short
+          title: i.title,
+          display_link: i.title.replace(/ /g, "_"),
+          multimedia: i.urlToImage,
+          source: i.source.name
         }
       });
 
-      var movies = {
+
+      var news = {
         display_title: {
           href: function(params) {
-            return `#movies/${this.display_link}`
+            return `#news/${this.display_link}`
           }
         },
         headline: {
-          id: function(params) {
-            return this.headline
+          class: function(params) {
+            return this.title
           }
         },
         image: {
@@ -108,44 +116,41 @@ console.log('global scope');
             return this.multimedia
           }
         },
-        link: {
-          id: function(params) {
-            return this.link
-          }
-        },
-        summary: {
-          id: function(params) {
-            return this.summary
+        source: {
+          href: function(params) {
+            return `${this.source}`
           }
         }
       };
 
-      console.log(movies)
+      console.log(news)
 
       var target = document.getElementById('activities');
-      console.log(api.response.results);
+      console.log(api.response.articles);
 
-      Transparency.render(target, dataFilm, movies);
+      Transparency.render(target, dataNews, news);
     },
 
-    movieDetail: function(data, name) {
+    newDetail: function(data, name) {
       var spaceName = name.replace(/_/g, " ")
 
-      var dataFilm2 = data.filter(function(i) {
-        return i.display_title == spaceName
+      var dataNews2 = data.filter(function(i) {
+        return i.title == spaceName
       }).map(function(i) {
         console.log(i)
         return {
-          display_title: i.display_title,
-          multimedia: i.multimedia.src,
-          summary: i.link.type
+          title: i.title,
+          multimedia: i.urlToImage,
+          description: i.description,
+          linkName: i.url.name,
+          link: i.url
         }
       });
 
-      var movieDetail = {
-        Title: {
+      var newsDetail = {
+        title: {
           href: function(params) {
-            return this.display_title
+            return this.title
           }
         },
         image: {
@@ -153,15 +158,25 @@ console.log('global scope');
             return this.multimedia
           }
         },
-        summary: {
-          id: function(params){
-            return this.article
+        description: {
+          class: function(params) {
+            return this.description
           }
-        }
+        },
+        linkName: {
+          class: function(params) {
+            return this.linkName
+          }
+        },
+        link: {
+          href: function(params) {
+            return this.link
+          }
+        },
       }
-      var target2 = document.getElementById('moviemain');
+      var target2 = document.getElementById('newsmain');
 
-      Transparency.render(target2, dataFilm2, movieDetail);
+      Transparency.render(target2, dataNews2, newsDetail);
 
     },
 
