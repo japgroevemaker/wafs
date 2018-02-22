@@ -180,3 +180,6 @@ newDetail: function(data, name) {
     },
   }
 ```
+
+### Visualization flow
+(https://github.com/japgroevemaker/wafs/blob/master/wafs.jpg)
