@@ -41,6 +41,7 @@ ul li a{
 	text-decoration: none;
 	font-family: sans-serif;
 	font-size: 1.2em;
+	font-weight: bold;
 	color: #000;
 	margin-bottom: 1em;
 }
@@ -88,7 +89,12 @@ h1{
 	height: 25em;
 	padding: 1em;
 	margin: 1em;
-	background-color: #ccc;
+	background-color: #f2f2f2;
+}
+
+#activities a{
+	font-size: 1.5em;
+	font-weight: bold;
 }
 
 #activities ul li img{
@@ -100,10 +106,12 @@ h1{
 	width: 100%;
 }
 
-#newsmain p{
+#newsmain p a{
 	width: 50%;
 	margin: auto;
 }
+
+
 
 .title{
 	font-family: sans-serif;
