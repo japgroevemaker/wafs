@@ -181,5 +181,5 @@ newDetail: function(data, name) {
   }
 ```
 
-### Visualization flow
-![alt text](https://github.com/japgroevemaker/wafs/blob/master/wafs.jpg)
+### Interaction diagram
+![alt text](https://github.com/japgroevemaker/wafs/blob/master/wafs3.jpg)
