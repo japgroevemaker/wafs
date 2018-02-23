@@ -32,7 +32,7 @@ console.log('global scope');
         console.log('het werkt niet')
       }
 
-      request.open('GET', 'https://newsapi.org/v2/top-headlines?country=us&apiKey=1f66fe07b37d4b97bfa9b13709c31a59', true);
+      request.open('GET', 'https://newsapi.org/v2/top-headlines?country=nl&apiKey=1f66fe07b37d4b97bfa9b13709c31a59', true);
       request.setRequestHeader("Accept", "application/json");
       request.send();
       console.log(api)
