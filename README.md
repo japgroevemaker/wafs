@@ -39,7 +39,7 @@ Vervolgens zorgden we er met JavaScript voor dat we die classes weer verwijderde
 Ik vind het een fijne manier van werken, al moet ik eerlijk zeggen dat ik het bouwen ervan nog wel erg moeilijk vind.
 
 ## Best practices - spa app
-![live demo](http://wafs.joepgravemaker.nl/)
+[live demo](http://wafs.joepgravemaker.nl/)
 De opdracht luidde: maak een single page web app waarin je data ophaalt uit een API. Ik ging zoeken naar een API en al snel bleek dat er tal van leuke API's beschikbaar waren
 maar dat er ook een moeilijkheidgraad aan een API hangt. Ik kwam daarom al snel uit bij de [news API.](https://www.programmableweb.com/api/news) Omdat ik eerder al voor een [Movie review API](https://www.programmableweb.com/api/new-york-times-movie-reviews) een basisstructuur opgezet had, was het niet moeilijk de API te veranderen. Ik ben uiteindelijk van de movie review API afgestapt omdat deze toch niet voldoende informatie bleek te bevatten.
 
