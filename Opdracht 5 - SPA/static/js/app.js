@@ -76,6 +76,7 @@ console.log('global scope');
         this.timesSearched++
       }
 
+<<<<<<< HEAD
       loader.show()
       fetch(url)
         .then((resp) => resp.json())
@@ -87,6 +88,12 @@ console.log('global scope');
         }).catch(function(error) {
           console.log(error);
         })
+=======
+      request.open('GET', 'https://newsapi.org/v2/top-headlines?country=nl&apiKey=1f66fe07b37d4b97bfa9b13709c31a59', true);
+      request.setRequestHeader("Accept", "application/json");
+      request.send();
+      console.log(api)
+>>>>>>> 3e2e4f6e484a01d9a9c5e44b3826616695bfac31
     }
   }
 
