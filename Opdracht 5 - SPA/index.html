@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Joep Gravemaker</title>
   <link rel="stylesheet" href="static/style/style.css">
+  <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -25,28 +26,52 @@
 
     </section>
 
+<section id="loaderBox">
+  <div id="loader"></div>
+</section>
+
+
     <section id="news" class="none">
-      <h1>Top Stories</h1>
+      <h1>Top headlines</h1>
+      <form class="" action="" method="">
+        <div class="check"><div class="inside"></div></div>
+        <input class="langChange" id="us" type="radio" name="country" value="us" checked>
+        <label for="us">Verenigde Staten</label>
+        <input class="langChange" id="nl" type="radio" name="country" value="nl">
+        <label for="nl">Nederland</label>
+        <input class="langChange" id="gb" type="radio" name="country" value="gb">
+        <label for="gb">Groot-Britannie</label>
+        <input class="langChange" id="fr" type="radio" name="country" value="fr">
+        <label for="fr">Frankrijk</label>
+        <input class="langChange" id="be" type="radio" name="country" value="be">
+        <label for="be">Belgie</label>
+        <input class="langChange" id="de" type="radio" name="country" value="de">
+        <label for="de">Duitsland</label>
+      </form>
+
       <div id="activities">
-        <ul>
+        <ul class="animated fadeInRight">
           <li><a class="display_title" data-bind="title"></a></li>
           <li><img src="" data-bind="image"></li>
+          <li><p data-bind="date"></p></li>
+          <li><p data-bind="source"></p></li>
         </ul>
       </div>
     </section>
 
-    <section id="newsmain" class="none">
+    <section id="newsmain" class="animated fadeInLeft" class="none">
 
         <h1 class="title" data-bind='title'></h1>
         <img src="" data-bind='image' alt="">
         <p class="description" data-bind='description'></p>
-        <a class="" data-bind="title"></a>
+        <a href="link" data-bind="link"><p data-bind="title"></p></a>
     </section>
 
   </main>
 
   <script src="static/js/routie.js"></script>
-  <script src="static/js/app.js"></script>
+  <!-- <script src="static/js/app.js"></script> -->
+  <script type="module" src="static/js/script.js"></script>
   <script src="static/js/transparency.min.js"></script>
 </body>
 

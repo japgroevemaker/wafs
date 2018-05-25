@@ -39,12 +39,13 @@ Vervolgens zorgden we er met JavaScript voor dat we die classes weer verwijderde
 Ik vind het een fijne manier van werken, al moet ik eerlijk zeggen dat ik het bouwen ervan nog wel erg moeilijk vind.
 
 ## Best practices - spa app
+![live demo](http://wafs.joepgravemaker.nl/)
 De opdracht luidde: maak een single page web app waarin je data ophaalt uit een API. Ik ging zoeken naar een API en al snel bleek dat er tal van leuke API's beschikbaar waren
 maar dat er ook een moeilijkheidgraad aan een API hangt. Ik kwam daarom al snel uit bij de [news API.](https://www.programmableweb.com/api/news) Omdat ik eerder al voor een [Movie review API](https://www.programmableweb.com/api/new-york-times-movie-reviews) een basisstructuur opgezet had, was het niet moeilijk de API te veranderen. Ik ben uiteindelijk van de movie review API afgestapt omdat deze toch niet voldoende informatie bleek te bevatten.
 
 ## Procces
 omdat ik het uit mijzelf schrijven van JavaScript nog erg lastig vindt, heb ik veel hulp gehad van de leraar en mede studenten.Dit heeft er voor gezorgd dat ik de basisstructuur ging begrijpen. Als eerst heb ik ervoor gezorgd dat de navigatie voor de single page web app werkte. Dit heb ik gedaan door 2 sections op de HTML pagina aan te maken.
-```
+```html
 <section id="Start">
   <h1>Home</h1>
 
@@ -61,7 +62,7 @@ omdat ik het uit mijzelf schrijven van JavaScript nog erg lastig vindt, heb ik v
 </section>
 ```
 De section met ```id="news"``` heb ik een ```class="none"``` mee gegeven. Deze staat in de css als volgt gedeclareerd:
-```
+```css
 .none{
 	display: none;
 }
@@ -182,4 +183,134 @@ newDetail: function(data, name) {
 ```
 
 ### Interaction diagram
-![alt text](https://github.com/japgroevemaker/wafs/blob/master/wafs3.jpg)
+![alt text](https://github.com/japgroevemaker/wafs/blob/master/BEELD/WAFS/wafs4.jpg)
+
+### Actor diagram
+![alt text](https://github.com/japgroevemaker/wafs/blob/master/BEELD/WAFS/wafs42.jpg)
+
+### Flow diagram
+![alt text](https://github.com/japgroevemaker/wafs/blob/master/BEELD/WAFS/wafs43.jpg)
+
+# Herkansing
+Omdat de app nog niet helemaal was wat het moest zijn moest ik herkansen. Er waren een aantal punten waarop ik moest verbeteren. Ik moest onderandere er voor zorgen dat de gebruiker de data kon filteren en/of sorteren.
+
+### Filteren
+Omdat dit een verbeter punt was, ben ik aan de slag gegaan met een filter functie. Mijn idee was dat de gebruiker het nieuws uit verschillende landen zou moeten kunnen ophalen. Hiervoor heb ik radio buttons aan de ```HTML``` toegevoegd. Elk van deze radio buttons heeft een value dat staat voor het land.
+```html
+<input class="langChange" id="us" type="radio" name="country" value="us" checked>
+<label for="us">Verenigde Staten</label>
+<input class="langChange" id="nl" type="radio" name="country" value="nl">
+<label for="nl">Nederland</label>
+<input class="langChange" id="gb" type="radio" name="country" value="gb">
+<label for="gb">Groot-Britannie</label>
+<input class="langChange" id="fr" type="radio" name="country" value="fr">
+<label for="fr">Frankrijk</label>
+<input class="langChange" id="be" type="radio" name="country" value="be">
+<label for="be">Belgie</label>
+<input class="langChange" id="de" type="radio" name="country" value="de">
+<label for="de">Duitsland</label>
+```
+Met deze value communiceer ik met mijn api zoals je hier onder kan zien.
+```js
+var langChange = {
+  filter: function() {
+    var lang = document.querySelectorAll(".langChange")
+    for (var i = 0; i < lang.length; i++) {
+      lang[i].addEventListener("click", function() {
+        console.log(this.value);
+        api.country = `country=${this.value}`
+        api.getData()
+      })
+    }
+  }
+}
+```
+Vervolgens voer ik deze functie uit binnen mijn API variabel.
+```js
+country: `country=${langChange.filter()}`,
+```
+Daarna wil ik natuurlijk nog ervoor zorgen dat de gebruiker standaard al nieuws te zien krijgt als hij/zij op de pagina komt. Dit doe ik met een counter en een if else statement. Binnen de variabel api maak ik een nieuwe variabel aan.
+```js
+timesSearched: 0
+```
+Vervolgens maak ik het if else statement aan.
+```js
+if (this.timesSearched > 0) {
+
+  var url = this.apiBasisUrl + this.typeOfNews + '?' + this.country + '&apiKey=' + this.apiKey;
+
+} else {
+  var url = this.apiBasisUrl + this.typeOfNews + '?' + "country=us" + '&apiKey=' + this.apiKey;
+  this.timesSearched++
+}
+```
+Hier in vertel ik dat, als de keer dat er gezocht is, groter dan 0 is. Hij deze waarde moet aanroepen:
+```js
+country: `country=${langChange.filter()}`,
+```
+Als dat niet het geval is moet hij dus de ```country=``` value op ```us``` zetten.
+```js
+"country=us"
+```
+
+## Feedback naar de gebruiker
+Een ander punt was dat ik de gebruiker feedback moest geven als er bijvoorbeeld data ingeladen werd. Dit heb ik gedaan doormiddel van een loader.
+Als eerst heb ik ```div``` aan de ```HTML``` toegevoegd.
+```html
+<div id="loader"></div>
+```
+Deze ben ik vervolgens gaan stijlen.
+```css
+#loader {
+  margin: auto;
+  border: 0.5em solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 0.5em solid #ff8533;
+  width: 5em;
+  height: 5em;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+	z-index: 20;
+}
+```
+Vervolgens heb ik de ```animation``` gedeclareerd zodat de loader zou gaan draaien.
+```css
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+```
+Daarna ben ik een ```function``` binnen javascript gaan aanmaken. Hier in selecteer ik de loader doormiddel van de id die er aan gekoppeld is. vervolgens voeg ik bij de ``` function hide()``` een class toe, en bij de ``` function show()``` haal ik diezelfde class weer weg. Deze specifieke class bevat alleen ```display: none;``` die er dus voor zorgt dat de loader getoond en verwijderd word.
+```js
+var loader = {
+  hide: function(){
+    var loader = document.getElementById('loader');
+    loader.classList.add('none')
+  },
+  show: function(){
+    var loader = document.getElementById('loader');
+    loader.classList.remove('none')
+  }
+}
+```
+Vervolgens is het natuurlijk essentieel dat deze ```function()``` op de juiste plek wordt uitgevoerd. De ```function()``` moet uitgevoerd worden voor dat de api de data in laadt en weer moet worden verborgen als de data is ingeladen. Dat doe ik op deze manier.
+```js
+loader.show()
+fetch(url)
+  .then((resp) => resp.json())
+  .then(function(data) {
+    console.log(data);
+    api.response = data
+    routes.init(api.response.articles)
+    loader.hide()
+  }).catch(function(error) {
+    console.log(error);
+  })
+```
+## Conclusie
+Nu ik tijdens de Herkansingen weer bezig ben geweest, gaat dit vak mij veel makkelijker af. Ik denk dat het ook goed geweest is dat ik eerst alle andere vakken heb gedaan en nu pas wafs. Ik kan nu veel meer zelf doen en mijn grootste struikelblok javascript wordt voor mij steeds logischer!
