@@ -217,7 +217,8 @@ h1{
 }
 
 #activities ul li img{
-	width: 22em;
+	width: 100%;
+	max-height: 15em;
 	margin-top: 8em;
 }
 
